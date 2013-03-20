@@ -69,7 +69,7 @@ class AngelList_Post_Meta_Box {
 	 */
 	public function enqueue_scripts() {
 		// if jQuery not present load from Google CDN
-		wp_enqueue_script( 'jquery', is_ssl() ? 'https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js' : 'http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js', array(), null );
+		wp_enqueue_script( 'jquery' );
 
 		// vary minified or not minified based on SCRIPT_DEBUG
 		$js_filename = 'angellist-company-selector.js';
@@ -200,7 +200,7 @@ class AngelList_Post_Meta_Box {
 				$company_id = absint( $company['id'] );
 				if ( $company_id < 1 || in_array( $company_id, $processed_company_ids, true ) )
 					continue;
-				$companies[] = array( 'id' => $company_id, 'name' => trim( $company['name'] ) );
+				$companies[] = array( 'id' => $company_id, 'name' => trim( sanitize_text_field( $company['name'] ) ) );
 				$processed_company_ids[] = $company_id;
 				unset( $company_id );
 			}
