@@ -138,9 +138,9 @@ class AngelList_Content {
 	 * @return string post content with AngelList content appended
 	 */
 	public function content( $content ) {
-		global $post;
+		global $post, $wp_query;
 
-		if ( ! ( isset( $post ) && $content && isset( $this->company_ids ) && is_array( $this->company_ids ) ) )
+		if ( $post->ID !== $wp_query->post->ID OR ! ( isset( $post ) && $content && isset( $this->company_ids ) && is_array( $this->company_ids ) ) )
 			return $content;
 
 		$post_id = absint( $post->ID );
